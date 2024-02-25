@@ -16,6 +16,7 @@ add_executable(Implementation
         Hardware/OnOffSystem.cpp
         Hardware/HumiditySensor.cpp
         Hardware/MoistureSensor.cpp
+        Hardware/TemperatureSensor.cpp
         MinMaxController.cpp
         Hardware/SDCard.cpp
         Hardware/ISensor.cpp
