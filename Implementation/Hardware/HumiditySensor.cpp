@@ -5,5 +5,5 @@
 #include "HumiditySensor.h"
 
 double HumiditySensor::getValue() {
-    return 123.456789;
+    return sensor.getHumidity();
 }

@@ -6,11 +6,14 @@
 #define IMPLEMENTATION_HUMIDITYSENSOR_H
 
 #include "ISensor.h"
+#include "../Sensors/dht.h"
 
 class HumiditySensor : public ISensor {
 
+    dht& sensor;
+
 public:
-    explicit HumiditySensor(String name) : ISensor(std::move(name)) {}
+    explicit HumiditySensor(String name, dht& sensor) : ISensor(std::move(name)), sensor(sensor) {}
     double getValue() override;
 };
 
