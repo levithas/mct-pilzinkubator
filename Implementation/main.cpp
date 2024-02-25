@@ -14,7 +14,6 @@ int main() {
 
     Greenhouse house;
     UartController controller;
-    dht dht(24, 25);
 
     controller.registerCommand("enablelogging", std::function<bool()>([&]() -> bool { return house.setLogging(true); }));
     controller.registerCommand("disablelogging", std::function<bool()>([&]() -> bool { return house.setLogging(false); }));
