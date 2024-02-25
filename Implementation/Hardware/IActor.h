@@ -20,7 +20,7 @@ public:
     virtual void setState(bool state) = 0;
     virtual bool getState() const = 0;
 
-    String ToString() { return name + ":" + (getState() ? "On" : "Off"); }
+    String ToString() { return name + ":" + (getState() ? "On" : "Off") + "\n"; }
     String getName() { return name; }
 };
 

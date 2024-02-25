@@ -18,10 +18,10 @@ bool DataLogger::log(const String &title) {
 
     String content = title + "\n";
     for(auto &sensor : sensorList) {
-        content += sensor->ToString() + "\n";
+        content += sensor->ToString();
     }
     for(auto &actor : actorList) {
-        content += actor->ToString() + "\n";
+        content += actor->ToString();
     }
     content += "\n";
     sd.writeFile(LOGGING_FILE, content, true);

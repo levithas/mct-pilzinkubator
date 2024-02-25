@@ -3,6 +3,7 @@
 //
 
 #include "Greenhouse.h"
+#include "Helper.h"
 
 Greenhouse::Greenhouse() : loggingTimer(0),
                            configTimer(1),
@@ -19,7 +20,7 @@ Greenhouse::Greenhouse() : loggingTimer(0),
                            humidityController(0.1,0.5)
 {
     statusLED.gpioMode(GPIO::OUTPUT);
-    loggingTimer.setCallback([this]() {this->LoggingCallback(); });
+    loggingTimer.setCallback([this]() {this->LoggingCallback(); statusLED = !statusLED; });
     loggingTimer.setPeriod(1000000, TIMER::PERIODIC);
 
     configTimer.setCallback([this]() {this->CheckConfig();});
@@ -144,22 +145,22 @@ void Greenhouse::parseConfig(std::string& cfg) {
             else if(cmd == "minhumidity")
             {
                 setMinHumidity(std::stod(val));
-                printf("Set %s to %f\n", cmd.c_str(), std::stod(val));
+                printf("Set %s to %s\n", cmd.c_str(), Helper::doubleToString(std::stod(val)).c_str());
             }
             else if(cmd == "maxhumidity")
             {
                 setMaxHumidity(std::stod(val));
-                printf("Set %s to %f\n", cmd.c_str(), std::stod(val));
+                printf("Set %s to %s\n", cmd.c_str(), Helper::doubleToString(std::stod(val)).c_str());
             }
             else if(cmd == "minmoisture")
             {
                 setMinMoisture(std::stod(val));
-                printf("Set %s to %f\n", cmd.c_str(), std::stod(val));
+                printf("Set %s to %s\n", cmd.c_str(), Helper::doubleToString(std::stod(val)).c_str());
             }
             else if(cmd == "maxmoisture")
             {
                 setMaxMoisture(std::stod(val));
-                printf("Set %s to %f\n", cmd.c_str(), std::stod(val));
+                printf("Set %s to %s\n", cmd.c_str(), Helper::doubleToString(std::stod(val)).c_str());
             }
             else if(cmd == "fan")
             {
