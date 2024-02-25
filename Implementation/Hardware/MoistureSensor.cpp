@@ -3,8 +3,15 @@
 //
 
 #include "MoistureSensor.h"
+#include <cmath>
+
+// Calibration
+#define MOISTURE_ZERO 3660.0
+#define MOISTURE_HUNDRET 3881.0
+
 
 double MoistureSensor::getValue() {
     uint16_t raw = sensorpin.adcReadRaw(); // Value between 0..4095
-    return (raw / 4095.0) * 100.0; // Output in %
+    double value = ((4095-raw) - MOISTURE_ZERO) / (MOISTURE_HUNDRET - MOISTURE_ZERO);
+    return value * 100.0; // Output in %
 }
