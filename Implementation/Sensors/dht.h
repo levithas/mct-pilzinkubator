@@ -17,8 +17,8 @@ class dht {
 public:
     dht(uint16_t sda, uint16_t scl);
 
-    double getTemperature() {return temperature; }
-    double getHumidity() { return humidity; }
+    [[nodiscard]] double getTemperature() const { return temperature; }
+    [[nodiscard]] double getHumidity() const { return humidity; }
     void updateSensor();
 };
 
