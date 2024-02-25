@@ -8,10 +8,12 @@ Greenhouse::Greenhouse() : loggingTimer(0),
                            configTimer(1),
                            statusLED(13),
                            ledStripe(WS2812_PIN, LED_COUNT),
+                           dhtsensor(DHT_SDA, DHT_SCL),
                            pump("Wasserpumpe", PUMP_PIN),
                            fan("Lüfter", FAN_PIN),
-                           moistureSensor("Feuchte Boden"),
-                           humiditySensor("Feuchte Luft"),
+                           moistureSensor("Feuchte Boden [%]", 0),
+                           humiditySensor("Feuchte Luft [%]", dhtsensor),
+                           temperatureSensor("Temperatur [°C]", dhtsensor),
                            logger(sd),
                            moistureController(0.1,0.5),
                            humidityController(0.1,0.5)
@@ -27,6 +29,7 @@ Greenhouse::Greenhouse() : loggingTimer(0),
     logger.registerActor(fan);
     logger.registerSensor(moistureSensor);
     logger.registerSensor(humiditySensor);
+    logger.registerSensor(temperatureSensor);
 }
 
 void Greenhouse::UpdateController() {
@@ -80,6 +83,7 @@ void Greenhouse::Update() {
     }
 
     UpdateConfig();
+    UpdateSensors();
     UpdateController();
     UpdateVisuals();
 }
@@ -169,4 +173,8 @@ void Greenhouse::parseConfig(std::string& cfg) {
             }
         }
     }
+}
+
+void Greenhouse::UpdateSensors() {
+    dhtsensor.updateSensor();
 }

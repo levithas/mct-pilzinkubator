@@ -8,11 +8,13 @@
 #include "UartController.h"
 
 #include "i2c_rp2040.h"
+#include "Sensors/dht.h"
 
 int main() {
 
     Greenhouse house;
     UartController controller;
+    dht dht(24, 25);
 
     controller.registerCommand("enablelogging", std::function<bool()>([&]() -> bool { return house.setLogging(true); }));
     controller.registerCommand("disablelogging", std::function<bool()>([&]() -> bool { return house.setLogging(false); }));
@@ -25,6 +27,7 @@ int main() {
 
     controller.registerCommand("gethumidity", std::function<double()>([&]() -> double { return house.getCurrentHumidity();}));
     controller.registerCommand("getmoisture", std::function<double()>([&]() -> double { return house.getCurrentMoisture();}));
+    controller.registerCommand("gettemperature", std::function<double()>([&]() -> double { return house.getCurrentTemperature();}));
 
     controller.registerCommand("setminhumidity", std::function<void(double)>([&](double val) { house.setMinHumidity(val);}));
     controller.registerCommand("setmaxhumidity", std::function<void(double)>([&](double val) { house.setMaxHumidity(val);}));

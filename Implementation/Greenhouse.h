@@ -22,9 +22,14 @@
 #include "Hardware/MoistureSensor.h"
 #include "DataLogger.h"
 #include "MinMaxController.h"
+#include "Hardware/TemperatureSensor.h"
 
 #define PUMP_PIN 20
 #define FAN_PIN 21
+
+#define DHT_SDA 24
+#define DHT_SCL 25
+// I2C 0 depending on SDA and SCL!!! (See dht.h)
 
 #define WS2812_PIN 29   // The GPIO pin controlling all the LEDs
 #define LED_COUNT  8    // Number of LEDs
@@ -36,9 +41,12 @@ class Greenhouse {
     gpio_rp2040_pin statusLED;
     ws2812_rp2040 ledStripe;
 
+    dht dhtsensor;
+
     OnOffSystem pump, fan;
     MoistureSensor moistureSensor;
     HumiditySensor humiditySensor;
+    TemperatureSensor temperatureSensor;
 
     SDCard sd;
     DataLogger logger;
@@ -56,6 +64,7 @@ class Greenhouse {
     uint32_t loggingPeriod = 1000;
 
     void UpdateConfig();
+    void UpdateSensors();
     void UpdateController();
     void UpdateVisuals();
 
@@ -95,6 +104,7 @@ public:
 
     double getCurrentHumidity() {return humiditySensor.getValue();}
     double getCurrentMoisture() {return moistureSensor.getValue();}
+    double getCurrentTemperature() {return temperatureSensor.getValue();}
 
     void readConfig();
 
