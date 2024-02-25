@@ -24,8 +24,8 @@
 #include "MinMaxController.h"
 #include "Hardware/TemperatureSensor.h"
 
-#define PUMP_PIN 20
-#define FAN_PIN 21
+#define PUMP_PIN 16
+#define FAN_PIN 15
 
 #define DHT_SDA 24
 #define DHT_SCL 25
