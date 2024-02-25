@@ -12,6 +12,7 @@ project(Implementation)
 
 add_executable(Implementation
         main.cpp
+        Helper.cpp
         Sensors/dht.cpp
         Hardware/OnOffSystem.cpp
         Hardware/HumiditySensor.cpp

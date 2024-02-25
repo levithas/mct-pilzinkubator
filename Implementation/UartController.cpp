@@ -3,6 +3,7 @@
 //
 
 #include "UartController.h"
+#include "Helper.h"
 
 UartController::UartController() {
     posix_io::inst.register_stdin ( uart );
@@ -70,9 +71,7 @@ void UartController::InterpretCommand() {
         else if(doubleCommands.contains(params[0]))
         {
             double res = doubleCommands[params[0]]();
-            int nachkomma =(int)(res * 1000) % 1000;
-            int vorkomma = (int)(res);
-            std::cout << std::to_string(vorkomma) << "." << std::to_string(nachkomma) << std::endl;
+            std::cout << Helper::doubleToString(res).c_str() << std::endl;
         }
         else
         {
