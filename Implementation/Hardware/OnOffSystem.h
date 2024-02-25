@@ -17,7 +17,7 @@ class OnOffSystem : public IActor {
     bool isActive = false;
 
 public:
-    explicit OnOffSystem(String name, uint32_t pin) : IActor(std::move(name)), pin(pin) {
+    explicit OnOffSystem(String name, uint32_t pin) : IActor(std::move(name)), pin(pin), control(pin) {
         control.gpioMode(GPIO::OUTPUT);
         control = isActive;
     }

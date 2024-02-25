@@ -10,6 +10,6 @@ bool OnOffSystem::getState() const {
 
 void OnOffSystem::setState(bool val) {
     isActive = val;
-    control = isActive;
+    control.gpioWrite(isActive);
 }
 
