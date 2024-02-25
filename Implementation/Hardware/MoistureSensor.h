@@ -5,14 +5,15 @@
 #ifndef IMPLEMENTATION_MOISTURESENSOR_H
 #define IMPLEMENTATION_MOISTURESENSOR_H
 
-#include <utility>
-
+#include "adc_rp2040.h"
 #include "ISensor.h"
 
 class MoistureSensor : public ISensor{
 
+    adc_rp2040_channel sensorpin;
+
 public:
-    explicit MoistureSensor(String name) : ISensor(std::move(name)) {}
+    explicit MoistureSensor(String name, uint16_t analogpin) : ISensor(std::move(name)), sensorpin(analogpin) {}
     double getValue() override;
 };
 
